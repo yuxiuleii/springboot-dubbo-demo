@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: producer-server
+  profiles:
+    active: test
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: 106.15.107.95:8848
+      config:
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        namespace: 7efde947-3dd8-4688-ae7a-280c8728fa4e
+dubbo:
+  application:
+    name: producer-dubbo-server
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://${spring.cloud.nacos.server-addr}
+    username: ${spring.cloud.nacos.username}
+    password: ${spring.cloud.nacos.password}
+    group: ${spring.cloud.nacos.config.group}

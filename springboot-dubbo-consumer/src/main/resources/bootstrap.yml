@@ -1,0 +1,36 @@
+﻿server:
+  port: 8080
+spring:
+  application:
+    name: consumer-server
+  profiles:
+    active: test
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: 106.15.107.95:8848
+      config:
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        namespace: 7efde947-3dd8-4688-ae7a-280c8728fa4e
+dubbo:
+  application:
+    name: consumer-dubbo-server
+    qos-port: 3334
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://${spring.cloud.nacos.server-addr}
+    username: ${spring.cloud.nacos.username}
+    password: ${spring.cloud.nacos.password}
+    group: ${spring.cloud.nacos.config.group}
+    protocol: nacos
+rocketmq:
+  name-server: 106.15.107.95:9876
+  producer:
+    group: Pro_Group
+    send-message-timeout: 3000
+    retry-times-when-send-failed: 3
+    retry-times-when-send-async-failed: 3
